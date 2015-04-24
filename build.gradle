@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+ext {
+    libName = 'TextAdventureAPI'
+    buildNumber = System.getenv().get('BUILD_NUMBER') ?: 'dev'
+    version = "1.0.${buildNumber}"
+}
+
+task dist(type: Jar) {
+    delete('build/libs')
+
+    archiveName = "${project.ext.libName}-${project.ext.version}.jar"
+
+    from files(sourceSets.main.output.classesDir)
+    from files(sourceSets.main.output.resourcesDir)
+    from { configurations.compile.collect { zipTree(it) } }
+}
+
+dist.dependsOn classes
