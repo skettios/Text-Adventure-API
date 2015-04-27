@@ -1,5 +1,7 @@
 package com.skettios.textadventure.api;
 
+import com.skettios.textadventure.api.command.CommandRegistry;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +9,18 @@ public abstract class TextAdventureContainer
 {
 	public void test()
 	{
-		parseCommand("this");
+		parseCommand("test");
 	}
+
+	/**
+	 * Method that is called on startup that should setup items and the character.
+	 */
+	public abstract void preInit();
+
+	/**
+	 * Method that is called on startup to setup rooms and other things.
+	 */
+	public abstract void init();
 
 	/**
 	 * Method that is called after inputting a command to console.
@@ -50,15 +62,8 @@ public abstract class TextAdventureContainer
 	 * @param command
 	 * @param args
 	 */
-	public abstract void parseCommand(String command, List<String> args);
-
-	/**
-	 * Method that is called on startup that should setup items and the character.
-	 */
-	public abstract void preInit();
-
-	/**
-	 * Method that is called on startup to setup rooms and other things.
-	 */
-	public abstract void init();
+	public void parseCommand(String command, List<String> args)
+	{
+		TextAdventureAPI.commandRegistry.executeCommand(command, args);
+	}
 }
