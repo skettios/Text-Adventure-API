@@ -4,29 +4,33 @@ import com.skettios.textadventure.api.command.CommandRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public abstract class TextAdventureContainer
 {
-	public void test()
+	private boolean isRunning = false;
+
+	public void start()
 	{
-		parseCommand("test");
+		isRunning = true;
+
+		Scanner in = new Scanner(System.in);
+
+		while (isRunning)
+		{
+			System.out.print("> ");
+			String commandLine = in.nextLine();
+			parseCommand(commandLine);
+		}
 	}
 
-	/**
-	 * Method that is called on startup that should setup items and the character.
-	 */
-	public abstract void preInit();
+	public void stop()
+	{
+		isRunning = false;
+	}
 
-	/**
-	 * Method that is called on startup to setup rooms and other things.
-	 */
-	public abstract void init();
+	public abstract void initialize();
 
-	/**
-	 * Method that is called after inputting a command to console.
-	 *
-	 * @param commandLine
-	 */
 	private void parseCommand(String commandLine)
 	{
 		List<String> args = new ArrayList<String>();
@@ -55,14 +59,7 @@ public abstract class TextAdventureContainer
 		parseCommand(command, args);
 	}
 
-	/**
-	 * Method to parse the incoming commands that will include arguments at each space.
-	 * ie. Commands and arguments cannot have spaces. Use a '-' to simulate a space.
-	 *
-	 * @param command
-	 * @param args
-	 */
-	public void parseCommand(String command, List<String> args)
+	private void parseCommand(String command, List<String> args)
 	{
 		TextAdventureAPI.commandRegistry.executeCommand(command, args);
 	}

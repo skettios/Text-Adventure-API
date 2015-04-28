@@ -1,5 +1,7 @@
 package com.skettios.textadventure.api.command;
 
+import com.skettios.textadventure.api.TextAdventureContainer;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Map;
 public class CommandRegistry
 {
 	private Map<String, ICommand> commandMap = new HashMap<String, ICommand>();
+	private String invalidCommandMessage = "You can't do that.";
 
 	public void registerCommand(String command, ICommand commandContainer)
 	{
@@ -18,7 +21,7 @@ public class CommandRegistry
 		if (!isCommandValid(command))
 		{
 			// TODO(skettios): Make it able to customize the "invalid command" message.
-			System.out.println("You can't do that.");
+			System.out.println(invalidCommandMessage);
 			return;
 		}
 
@@ -29,6 +32,11 @@ public class CommandRegistry
 		}
 
 		commandMap.get(command).onExecute(args);
+	}
+
+	public void setInvalidCommandMessage(String message)
+	{
+		invalidCommandMessage = message;
 	}
 
 	private boolean isCommandValid(String command)
