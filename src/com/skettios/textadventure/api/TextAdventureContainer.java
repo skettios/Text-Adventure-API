@@ -1,14 +1,22 @@
 package com.skettios.textadventure.api;
 
+import com.skettios.textadventure.api.command.CommandClear;
+import com.skettios.textadventure.api.command.CommandExit;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TextAdventureContainer
 {
-	protected TextAdventureUI ui = new TextAdventureUI();
+	protected TextAdventureUI ui;
 
-	public void start()
+	public void start(String title)
 	{
+		ui = new TextAdventureUI(title);
+
+		TextAdventureAPI.registerCommand("exit", new CommandExit(this));
+		TextAdventureAPI.registerCommand("clear", new CommandClear(ui));
+
 		ui.start(this);
 	}
 

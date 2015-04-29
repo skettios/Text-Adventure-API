@@ -14,7 +14,7 @@ public class TextAdventureUI extends JFrame
 	private JTextField consoleField;
 	private JButton button;
 
-	public TextAdventureUI()
+	public TextAdventureUI(String title)
 	{
 		mainPanel = new JPanel();
 		consoleArea = new JTextArea();
@@ -22,7 +22,7 @@ public class TextAdventureUI extends JFrame
 		button = new JButton("Enter");
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setTitle("Text Adventure API");
+		setTitle(title);
 		setMaximumSize(new Dimension(800, 600));
 		setSize(800, 600);
 
@@ -85,5 +85,10 @@ public class TextAdventureUI extends JFrame
 			return;
 
 		consoleArea.append(message + "\n");
+	}
+
+	public void clearConsole()
+	{
+		consoleArea.setText("");
 	}
 }

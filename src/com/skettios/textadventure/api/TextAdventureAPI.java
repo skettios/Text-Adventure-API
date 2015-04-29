@@ -1,6 +1,5 @@
 package com.skettios.textadventure.api;
 
-import com.skettios.textadventure.api.command.CommandExit;
 import com.skettios.textadventure.api.command.CommandRegistry;
 import com.skettios.textadventure.api.command.ICommand;
 import com.skettios.textadventure.api.item.Item;
@@ -14,15 +13,12 @@ public final class TextAdventureAPI
 
 	private static TextAdventureContainer taContainer;
 
-	public static void start(TextAdventureContainer container)
+	public static void start(String title, TextAdventureContainer container)
 	{
 		taContainer = container;
-
-		registerCommand("exit", new CommandExit(container));
-
 		container.initialize();
 
-		container.start();
+		container.start(title);
 	}
 
 	public static void registerCommand(String command, ICommand commandContainer)

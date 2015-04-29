@@ -13,6 +13,9 @@ public class CommandRegistry
 
 	public void registerCommand(String command, ICommand commandContainer)
 	{
+		if (commandMap.containsKey(command))
+			return;
+
 		commandMap.put(command, commandContainer);
 	}
 
@@ -20,7 +23,6 @@ public class CommandRegistry
 	{
 		if (!isCommandValid(command))
 		{
-			// TODO(skettios): Make it able to customize the "invalid command" message.
 			TextAdventureAPI.sendMessage(invalidCommandMessage);
 			return;
 		}
