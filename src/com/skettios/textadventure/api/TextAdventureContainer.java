@@ -1,37 +1,28 @@
 package com.skettios.textadventure.api;
 
-import com.skettios.textadventure.api.command.CommandRegistry;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public abstract class TextAdventureContainer
 {
-	private boolean isRunning = false;
+	protected TextAdventureUI ui = new TextAdventureUI();
 
 	public void start()
 	{
-		isRunning = true;
-
-		Scanner in = new Scanner(System.in);
-
-		while (isRunning)
-		{
-			System.out.print("> ");
-			String commandLine = in.nextLine();
-			parseCommand(commandLine);
-		}
+		ui.start(this);
 	}
 
 	public void stop()
 	{
-		isRunning = false;
+		for (int i = 1; i <= 10; i++)
+			TextAdventureAPI.sendMessage("Exiting game in " + i + "...");
+
+		System.exit(0);
 	}
 
 	public abstract void initialize();
 
-	private void parseCommand(String commandLine)
+	protected void parseCommand(String commandLine)
 	{
 		List<String> args = new ArrayList<String>();
 		String command;

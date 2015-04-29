@@ -1,6 +1,6 @@
 package com.skettios.textadventure.api.command;
 
-import com.skettios.textadventure.api.TextAdventureContainer;
+import com.skettios.textadventure.api.TextAdventureAPI;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,13 +21,13 @@ public class CommandRegistry
 		if (!isCommandValid(command))
 		{
 			// TODO(skettios): Make it able to customize the "invalid command" message.
-			System.out.println(invalidCommandMessage);
+			TextAdventureAPI.sendMessage(invalidCommandMessage);
 			return;
 		}
 
 		if (!canCommandExecute(command, args))
 		{
-			System.out.println(commandMap.get(command).getErrorMessage());
+			TextAdventureAPI.sendMessage(commandMap.get(command).getErrorMessage());
 			return;
 		}
 

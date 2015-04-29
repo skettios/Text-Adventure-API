@@ -12,11 +12,16 @@ public final class TextAdventureAPI
 	protected static CommandRegistry commandRegistry = new CommandRegistry();
 	protected static RoomRegistry roomRegistry = new RoomRegistry();
 
+	private static TextAdventureContainer taContainer;
+
 	public static void start(TextAdventureContainer container)
 	{
+		taContainer = container;
+
 		registerCommand("exit", new CommandExit(container));
 
 		container.initialize();
+
 		container.start();
 	}
 
@@ -33,6 +38,11 @@ public final class TextAdventureAPI
 	public static void registerItem(Item item)
 	{
 
+	}
+
+	public static void sendMessage(String message)
+	{
+		taContainer.ui.sendMessage(message);
 	}
 
 	public static void setInvalidCommandMessage(String message)
