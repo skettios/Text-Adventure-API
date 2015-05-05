@@ -22,7 +22,7 @@ public class CommandLoad implements ICommand
 	@Override
 	public String[] getCommandAliases()
 	{
-		return new String[]{"load"};
+		return new String[]{ "load" };
 	}
 
 	@Override

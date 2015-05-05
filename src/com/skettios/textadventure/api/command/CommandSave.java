@@ -20,7 +20,7 @@ public class CommandSave implements ICommand
 	@Override
 	public String[] getCommandAliases()
 	{
-		return new String[]{"save"};
+		return new String[]{ "save" };
 	}
 
 	@Override
