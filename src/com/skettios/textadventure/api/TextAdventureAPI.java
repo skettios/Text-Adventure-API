@@ -28,9 +28,9 @@ public final class TextAdventureAPI
 		container.start(title);
 	}
 
-	public static void registerCommand(String command, ICommand commandContainer)
+	public static void registerCommand(ICommand commandContainer)
 	{
-		commandRegistry.registerCommand(command, commandContainer);
+		commandRegistry.registerCommand(commandContainer);
 	}
 
 	public static void registerRoom(Room room)
@@ -53,23 +53,43 @@ public final class TextAdventureAPI
 		commandRegistry.setInvalidCommandMessage(message);
 	}
 
-	public static void setStoryBoolean(String key, boolean flag)
+	public static void setBoolean(String key, boolean flag)
 	{
 		storyFlagManager.setBoolean(key, flag);
 	}
 
-	public static void setStoryInteger(String key, int flag)
+	public static void setInteger(String key, int flag)
 	{
 		storyFlagManager.setInteger(key, flag);
 	}
 
-	public static void setStoryFloat(String key, float flag)
+	public static void setFloat(String key, float flag)
 	{
 		storyFlagManager.setFloat(key, flag);
 	}
 
-	public static void setStoryString(String key, String flag)
+	public static void setString(String key, String flag)
 	{
 		storyFlagManager.setString(key, flag);
+	}
+
+	public static boolean getBoolean(String key)
+	{
+		return storyFlagManager.getBoolean(key);
+	}
+
+	public static int getInteger(String key)
+	{
+		return storyFlagManager.getInteger(key);
+	}
+
+	public static float getFloat(String key)
+	{
+		return storyFlagManager.getFloat(key);
+	}
+
+	public static String getString(String key)
+	{
+		return storyFlagManager.getString(key);
 	}
 }

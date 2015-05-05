@@ -14,6 +14,12 @@ public class CommandExit implements ICommand
 	}
 
 	@Override
+	public String[] getCommandAliases()
+	{
+		return new String[]{"exit", "quit"};
+	}
+
+	@Override
 	public void onExecute(List<String> args)
 	{
 		container.stop();

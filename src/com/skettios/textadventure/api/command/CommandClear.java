@@ -14,6 +14,12 @@ public class CommandClear implements ICommand
 	}
 
 	@Override
+	public String[] getCommandAliases()
+	{
+		return new String[]{"clear"};
+	}
+
+	@Override
 	public void onExecute(List<String> args)
 	{
 		ui.clearConsole();

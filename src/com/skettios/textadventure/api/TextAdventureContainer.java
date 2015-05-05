@@ -16,10 +16,10 @@ public abstract class TextAdventureContainer
 	{
 		ui = new TextAdventureUI(title);
 
-		TextAdventureAPI.registerCommand("exit", new CommandExit(this));
-		TextAdventureAPI.registerCommand("clear", new CommandClear(ui));
-		TextAdventureAPI.registerCommand("save", new CommandSave(TextAdventureAPI.storyFlagManager));
-		TextAdventureAPI.registerCommand("load", new CommandLoad(TextAdventureAPI.storyFlagManager));
+		TextAdventureAPI.registerCommand(new CommandExit(this));
+		TextAdventureAPI.registerCommand(new CommandClear(ui));
+		TextAdventureAPI.registerCommand(new CommandSave(TextAdventureAPI.storyFlagManager));
+		TextAdventureAPI.registerCommand(new CommandLoad(TextAdventureAPI.storyFlagManager));
 
 		ui.start(this);
 	}

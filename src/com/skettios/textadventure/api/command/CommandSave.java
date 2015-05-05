@@ -18,6 +18,12 @@ public class CommandSave implements ICommand
 	}
 
 	@Override
+	public String[] getCommandAliases()
+	{
+		return new String[]{"save"};
+	}
+
+	@Override
 	public void onExecute(List<String> args)
 	{
 		if ((args.isEmpty() || args.get(0) == null) || (args.size() > 1 || args.size() == 0))
@@ -78,13 +84,13 @@ public class CommandSave implements ICommand
 			out.close();
 			new File("saves/" + args.get(0) + ".sav").delete();
 			new File("saves/" + args.get(0) + "-temp.sav").renameTo(new File("saves/" + args.get(0) + ".sav"));
+
+			TextAdventureAPI.sendMessage("Saved current progress to: saves/" + args.get(0) + ".sav");
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			TextAdventureAPI.sendMessage("Problem saving current progress... You're screwed...");
 		}
-
-		TextAdventureAPI.sendMessage("Saved current progress to:\tsaves/" + args.get(0) + ".sav");
 	}
 
 	@Override

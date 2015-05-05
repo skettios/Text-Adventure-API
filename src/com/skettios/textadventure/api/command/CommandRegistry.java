@@ -11,12 +11,15 @@ public class CommandRegistry
 	private Map<String, ICommand> commandMap = new HashMap<String, ICommand>();
 	private String invalidCommandMessage = "You can't do that.";
 
-	public void registerCommand(String command, ICommand commandContainer)
+	public void registerCommand(ICommand commandContainer)
 	{
-		if (commandMap.containsKey(command))
-			return;
+		for (String alias : commandContainer.getCommandAliases())
+		{
+			if (commandMap.containsKey(alias))
+				return;
 
-		commandMap.put(command, commandContainer);
+			commandMap.put(alias, commandContainer);
+		}
 	}
 
 	public void executeCommand(String command, List<String> args)

@@ -44,19 +44,7 @@ public class SaveHelper
 				doCopy(is, cos);
 			}
 		}
-		catch (InvalidKeyException e)
-		{
-			e.printStackTrace();
-		}
-		catch (NoSuchAlgorithmException e)
-		{
-			e.printStackTrace();
-		}
-		catch (InvalidKeySpecException e)
-		{
-			e.printStackTrace();
-		}
-		catch (NoSuchPaddingException e)
+		catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException e)
 		{
 			e.printStackTrace();
 		}

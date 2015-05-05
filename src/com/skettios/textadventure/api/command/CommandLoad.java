@@ -20,6 +20,12 @@ public class CommandLoad implements ICommand
 	}
 
 	@Override
+	public String[] getCommandAliases()
+	{
+		return new String[]{"load"};
+	}
+
+	@Override
 	public void onExecute(List<String> args)
 	{
 		try
