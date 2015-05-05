@@ -2,6 +2,8 @@ package com.skettios.textadventure.api;
 
 import com.skettios.textadventure.api.command.CommandClear;
 import com.skettios.textadventure.api.command.CommandExit;
+import com.skettios.textadventure.api.command.CommandLoad;
+import com.skettios.textadventure.api.command.CommandSave;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +18,15 @@ public abstract class TextAdventureContainer
 
 		TextAdventureAPI.registerCommand("exit", new CommandExit(this));
 		TextAdventureAPI.registerCommand("clear", new CommandClear(ui));
+		TextAdventureAPI.registerCommand("save", new CommandSave(TextAdventureAPI.storyFlagManager));
+		TextAdventureAPI.registerCommand("load", new CommandLoad(TextAdventureAPI.storyFlagManager));
 
 		ui.start(this);
 	}
 
-	public void stop()
+	public synchronized void stop()
 	{
-		for (int i = 1; i <= 10; i++)
-			TextAdventureAPI.sendMessage("Exiting game in " + i + "...");
+		TextAdventureAPI.sendMessage("Thank you for playing!");
 
 		System.exit(0);
 	}
@@ -49,8 +52,7 @@ public abstract class TextAdventureContainer
 				args.add(arg);
 			}
 			args.add(argsLine);
-		}
-		else
+		} else
 		{
 			command = commandLine;
 		}

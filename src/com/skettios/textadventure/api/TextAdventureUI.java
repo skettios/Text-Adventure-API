@@ -50,6 +50,9 @@ public class TextAdventureUI extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				if (consoleField.getText().isEmpty())
+					return;
+
 				container.parseCommand(consoleField.getText());
 				consoleField.setText("");
 			}
@@ -67,6 +70,9 @@ public class TextAdventureUI extends JFrame
 			{
 				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
+					if (consoleField.getText().isEmpty())
+						return;
+
 					container.parseCommand(consoleField.getText());
 					consoleField.setText("");
 				}

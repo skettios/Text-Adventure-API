@@ -2,6 +2,7 @@
 build/
 out/
 test/
+saves/
 
 Text-Adventure-API.ipr
 Text-Adventure-API.iws
