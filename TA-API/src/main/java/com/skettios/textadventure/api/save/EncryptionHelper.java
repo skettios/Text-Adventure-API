@@ -9,9 +9,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class SaveHelper
+public class EncryptionHelper
 {
-	private static String SAVE_DES_KEY = "s15kd328";
+	private static String SAVE_DES_KEY = "83DE42FA1F3C99AB";
 
 	public static void encryptSave(InputStream is, OutputStream os)
 	{
@@ -44,7 +44,19 @@ public class SaveHelper
 				doCopy(is, cos);
 			}
 		}
-		catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException e)
+		catch (InvalidKeyException e)
+		{
+			e.printStackTrace();
+		}
+		catch (InvalidKeySpecException e)
+		{
+			e.printStackTrace();
+		}
+		catch (NoSuchPaddingException e)
+		{
+			e.printStackTrace();
+		}
+		catch (NoSuchAlgorithmException e)
 		{
 			e.printStackTrace();
 		}

@@ -1,35 +1,49 @@
-apply plugin: 'java'
-apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 
-sourceCompatibility = 1.7
-sourceSets.main.java.srcDirs = ["src/"]
-
-repositories {
-    mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked"
 }
 
-dependencies {
-    compile 'com.esotericsoftware:jsonbeans:0.7'
-    compile 'com.google.code.gson:gson:2.3.1'
+allprojects {
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'idea'
+	
+	ext {
+		libName = 'TextAdventure'
+		buildNumber = System.getenv().get('BUILD_NUMBER') ?: 'dev'
+		version = "1.0.${buildNumber}"
+	}
+	
+	repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+	
+	dependencies {
+		compile 'com.esotericsoftware:jsonbeans:0.7'
+		compile 'com.google.code.gson:gson:2.3.1'
+	}
 }
 
-ext {
-    libName = 'TextAdventureAPI'
-    buildNumber = System.getenv().get('BUILD_NUMBER') ?: 'dev'
-    version = "1.0.${buildNumber}"
+project(':TA-API') {
+	apply plugin: 'java'
 }
 
-task dist(type: Jar) {
-    delete('build/libs')
-
-    archiveName = "${project.ext.libName}-${project.ext.version}.jar"
-
-    from files(sourceSets.main.output.classesDir)
-    from files(sourceSets.main.output.resourcesDir)
-    from { configurations.compile.collect { zipTree(it) } }
+project(':TA-SaveModifier') {
+	apply plugin: 'java'
 }
 
-dist.dependsOn classes
+task dist() {
+	doFirst {
+		println 'Compiling TA-API & TA-SaveModifier!'
+	}
+}
+
+dist.dependsOn 'TA-API:dist', 'TA-SaveModifier:dist'
+
+tasks.eclipse.doLast {
+	delete '.project'
+}

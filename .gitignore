@@ -1,9 +1,8 @@
 .gradle/
-build/
 out/
-test/
-saves/
+**/build
+**/*.sav
 
-Text-Adventure-API.ipr
-Text-Adventure-API.iws
-Text-Adventure-API.iml
+*.ipr
+*.iws
+*.iml

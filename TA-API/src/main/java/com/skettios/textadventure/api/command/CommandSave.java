@@ -2,7 +2,7 @@ package com.skettios.textadventure.api.command;
 
 import com.google.gson.stream.JsonWriter;
 import com.skettios.textadventure.api.TextAdventureAPI;
-import com.skettios.textadventure.api.save.SaveHelper;
+import com.skettios.textadventure.api.save.EncryptionHelper;
 import com.skettios.textadventure.api.story.StoryFlagManager;
 
 import java.io.*;
@@ -34,9 +34,12 @@ public class CommandSave implements ICommand
 
 		try
 		{
-			FileOutputStream out = new FileOutputStream("saves/" + args.get(0) + ".sav");
+			if (new File("saves/" + args.get(0)).exists())
+				EncryptionHelper.decryptSave(new FileInputStream("saves/" + args.get(0) + ".sav"), new FileOutputStream("saves/" + args.get(0) + "-temp.sav"));
+
+			FileOutputStream out = new FileOutputStream("saves/" + args.get(0) + "-temp.sav");
 			JsonWriter writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
-			writer.setIndent("	");
+//			writer.setIndent("	");
 
 			writer.beginArray();
 			{
@@ -79,11 +82,11 @@ public class CommandSave implements ICommand
 			writer.endArray();
 
 			writer.flush();
-
-			SaveHelper.encryptSave(new FileInputStream("saves/" + args.get(0) + ".sav"), new FileOutputStream("saves/" + args.get(0) + "-temp.sav"));
 			out.close();
-			new File("saves/" + args.get(0) + ".sav").delete();
-			new File("saves/" + args.get(0) + "-temp.sav").renameTo(new File("saves/" + args.get(0) + ".sav"));
+
+			EncryptionHelper.encryptSave(new FileInputStream("saves/" + args.get(0) + "-temp.sav"), new FileOutputStream("saves/" + args.get(0) + ".sav"));
+
+			new File("saves/" + args.get(0) + "-temp.sav").delete();
 
 			TextAdventureAPI.sendMessage("Saved current progress to: saves/" + args.get(0) + ".sav");
 		}

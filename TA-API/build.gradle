@@ -1,0 +1,59 @@
+apply plugin: 'java'
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java'
+		}
+		resources {
+			srcDir 'src/main/resources'
+		}
+	}
+	
+	test {
+		java {
+			srcDir 'src/test/java'
+		}
+		resources {
+			srcDir 'src/test/resources'
+		}
+	}
+}
+
+task runTest(dependsOn: classes, type: JavaExec) {
+	main = "com.skettios.textadventure.Start"
+	classpath = sourceSets.test.runtimeClasspath
+	standardInput = System.in
+	workingDir = 'src/test/resources'
+	ignoreExitValue = true;
+}
+
+task dist(type: Jar) {
+    delete('build/libs')
+
+    archiveName = "${libName}-API-${version}.jar"
+
+    from files(sourceSets.main.output.classesDir)
+    from files(sourceSets.main.output.resourcesDir)
+    from { configurations.compile.collect { zipTree(it) } }
+}
+
+dist.dependsOn classes
+
+eclipse {
+    project {
+        name = name + "-API"
+        linkedResource name: 'assets', type: '2', location: 'PARENT-1-PROJECT_LOC/android/assets'
+    }
+}
+
+task afterEclipseImport(description: "Post processing after project generation", group: "IDE") {
+    doLast {
+        def classpath = new XmlParser().parse(file(".classpath"))
+        new Node(classpath, "classpathentry", [kind: 'src', path: 'assets']);
+        def writer = new FileWriter(file(".classpath"))
+        def printer = new XmlNodePrinter(new PrintWriter(writer))
+        printer.setPreserveWhitespace(true)
+        printer.print(classpath)
+    }
+}
