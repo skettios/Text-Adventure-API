@@ -31,7 +31,7 @@ task runTest(dependsOn: classes, type: JavaExec) {
 task dist(type: Jar) {
     delete('build/libs')
 
-    archiveName = "${libName}-API-${version}.jar"
+    archiveName = "${project.ext.libName}-API-${project.ext.version}.jar"
 
     from files(sourceSets.main.output.classesDir)
     from files(sourceSets.main.output.resourcesDir)
