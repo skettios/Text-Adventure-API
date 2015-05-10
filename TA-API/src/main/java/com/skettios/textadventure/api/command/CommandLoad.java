@@ -6,9 +6,10 @@ import com.skettios.textadventure.api.TextAdventureAPI;
 import com.skettios.textadventure.api.save.EncryptionHelper;
 import com.skettios.textadventure.api.story.StoryFlagManager;
 
-import java.io.*;
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.Type;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +34,14 @@ public class CommandLoad implements ICommand
 		if (args.size() == 0 || args.size() > 1)
 			return;
 
-		File save = new File("saves/" + args.get(0) + ".sav");
-		File tempSave = new File("saves/" + args.get(0) + "-temp.sav");
+		File save = new File(TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + ".sav");
+		File tempSave = new File(TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + "-temp.sav");
 
 		if (!save.exists())
+		{
+			TextAdventureAPI.sendMessage("The save file, " + args.get(0) + ".sav doesn't exist!");
 			return;
+		}
 
 		try
 		{
@@ -69,8 +73,7 @@ public class CommandLoad implements ICommand
 										if (innerValue != null)
 											flagManager.setBoolean(innerValue.name(), innerValue.asBoolean());
 									}
-								}
-								else if (currentValue.name().equals("integers"))
+								} else if (currentValue.name().equals("integers"))
 								{
 									JsonValue.JsonIterator integerIter = currentValue.iterator();
 									while (integerIter.hasNext())
@@ -79,8 +82,7 @@ public class CommandLoad implements ICommand
 										if (innerValue != null)
 											flagManager.setInteger(innerValue.name(), innerValue.asInt());
 									}
-								}
-								else if (currentValue.name().equals("floats"))
+								} else if (currentValue.name().equals("floats"))
 								{
 									JsonValue.JsonIterator floatIter = currentValue.iterator();
 									while (floatIter.hasNext())
@@ -89,8 +91,7 @@ public class CommandLoad implements ICommand
 										if (innerValue != null)
 											flagManager.setFloat(innerValue.name(), innerValue.asFloat());
 									}
-								}
-								else if (currentValue.name().equals("strings"))
+								} else if (currentValue.name().equals("strings"))
 								{
 									JsonValue.JsonIterator stringIter = currentValue.iterator();
 									while (stringIter.hasNext())
@@ -109,14 +110,14 @@ public class CommandLoad implements ICommand
 			if (tempSave.exists())
 				tempSave.delete();
 
-			TextAdventureAPI.sendMessage("Loaded previous progress from: saves/" + args.get(0) + ".sav");
+			TextAdventureAPI.sendMessage("Loaded previous progress from: " + TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + ".sav");
 		}
 		catch (Exception ie)
 		{
 			if (tempSave.exists())
 				tempSave.delete();
 
-			TextAdventureAPI.sendMessage("Error loading save from: saves/" + args.get(0) + ".sav... Restart and try again.");
+			TextAdventureAPI.sendMessage("Error loading save from: " + TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + ".sav... Restart and try again.");
 		}
 	}
 
@@ -127,7 +128,7 @@ public class CommandLoad implements ICommand
 	}
 
 	@Override
-	public String getErrorMessage()
+	public String getErrorMessage(List<String> args)
 	{
 		return null;
 	}

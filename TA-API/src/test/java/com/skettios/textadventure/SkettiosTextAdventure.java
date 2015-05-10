@@ -6,6 +6,11 @@ import com.skettios.textadventure.command.*;
 
 public class SkettiosTextAdventure extends TextAdventureContainer
 {
+	public SkettiosTextAdventure(String title, String saveDir)
+	{
+		super(title, saveDir);
+	}
+
 	@Override
 	public void initialize()
 	{

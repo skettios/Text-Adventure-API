@@ -16,7 +16,7 @@ public class CommandExit implements ICommand
 	@Override
 	public String[] getCommandAliases()
 	{
-		return new String[]{ "exit", "quit" };
+		return new String[]{ "exit", "quit", ":wq" };
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class CommandExit implements ICommand
 	}
 
 	@Override
-	public String getErrorMessage()
+	public String getErrorMessage(List<String> args)
 	{
 		return "Something wrong happened.";
 	}

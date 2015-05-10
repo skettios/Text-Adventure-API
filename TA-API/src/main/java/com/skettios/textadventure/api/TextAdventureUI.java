@@ -30,6 +30,10 @@ public class TextAdventureUI extends JFrame
 		consoleArea.setEditable(false);
 		consoleArea.setLineWrap(true);
 
+		consoleArea.setFont(new Font("Arial", Font.PLAIN, 15));
+		consoleField.setFont(new Font("Arial", Font.PLAIN, 15));
+		button.setFont(new Font("Arial", Font.PLAIN, 15));
+
 		consoleField.setPreferredSize(new Dimension(674, 25));
 
 		button.setPreferredSize(new Dimension(99, 25));

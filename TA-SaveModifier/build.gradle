@@ -13,6 +13,14 @@ sourceSets {
 	}
 }
 
+task run(dependsOn: classes, type: JavaExec) {
+    main = "com.skettios.textadventure.savemodifier.Start"
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = 'src/main/resources'
+    ignoreExitValue = true;
+}
+
 task dist(type: Jar) {
     delete('build/libs')
 

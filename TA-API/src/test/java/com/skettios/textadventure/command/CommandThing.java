@@ -16,11 +16,11 @@ public class CommandThing implements ICommand
 	@Override
 	public void onExecute(List<String> args)
 	{
-		TextAdventureAPI.sendMessage("Setting test-boolean to " + args.get(0));
+		TextAdventureAPI.sendMessage("Setting test-bool to " + args.get(0));
 		if (args.get(0).equals("true"))
-			TextAdventureAPI.setBoolean("test-boolean", true);
+			TextAdventureAPI.setBoolean("test-bool", true);
 		else
-			TextAdventureAPI.setBoolean("test-boolean", false);
+			TextAdventureAPI.setBoolean("test-bool", false);
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class CommandThing implements ICommand
 	}
 
 	@Override
-	public String getErrorMessage()
+	public String getErrorMessage(List<String> args)
 	{
 		return null;
 	}

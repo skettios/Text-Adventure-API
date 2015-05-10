@@ -16,7 +16,7 @@ public class CommandClear implements ICommand
 	@Override
 	public String[] getCommandAliases()
 	{
-		return new String[]{ "clear" };
+		return new String[]{ "clear", "cl" };
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class CommandClear implements ICommand
 	}
 
 	@Override
-	public String getErrorMessage()
+	public String getErrorMessage(List<String> args)
 	{
 		return "Something went wrong!";
 	}

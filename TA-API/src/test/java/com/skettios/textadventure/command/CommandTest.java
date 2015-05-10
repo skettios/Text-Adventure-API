@@ -26,7 +26,7 @@ public class CommandTest implements ICommand
 	}
 
 	@Override
-	public String getErrorMessage()
+	public String getErrorMessage(List<String> args)
 	{
 		return "You do not have something idk?";
 	}

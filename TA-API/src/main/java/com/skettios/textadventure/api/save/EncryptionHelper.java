@@ -37,7 +37,8 @@ public class EncryptionHelper
 				cipher.init(Cipher.ENCRYPT_MODE, desKey);
 				CipherInputStream cis = new CipherInputStream(is, cipher);
 				doCopy(cis, os);
-			} else if (mode == Cipher.DECRYPT_MODE)
+			}
+			else if (mode == Cipher.DECRYPT_MODE)
 			{
 				cipher.init(Cipher.DECRYPT_MODE, desKey);
 				CipherOutputStream cos = new CipherOutputStream(os, cipher);

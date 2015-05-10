@@ -17,15 +17,12 @@ public final class TextAdventureAPI
 
 	private static TextAdventureContainer taContainer;
 
-	public static void start(String title, TextAdventureContainer container)
+	public static void start(TextAdventureContainer container)
 	{
 		taContainer = container;
 		container.initialize();
 
-		if (!new File("saves").exists())
-			new File("saves").mkdir();
-
-		container.start(title);
+		container.start();
 	}
 
 	public static void registerCommand(ICommand commandContainer)
@@ -91,5 +88,10 @@ public final class TextAdventureAPI
 	public static String getString(String key)
 	{
 		return storyFlagManager.getString(key);
+	}
+
+	public static File getSaveDirectory()
+	{
+		return taContainer.saveDir;
 	}
 }

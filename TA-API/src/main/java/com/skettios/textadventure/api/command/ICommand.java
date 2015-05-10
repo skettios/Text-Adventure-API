@@ -10,5 +10,5 @@ public interface ICommand
 
 	boolean canExecute(List<String> args);
 
-	String getErrorMessage();
+	String getErrorMessage(List<String> args);
 }

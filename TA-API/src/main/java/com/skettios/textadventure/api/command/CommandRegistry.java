@@ -32,7 +32,7 @@ public class CommandRegistry
 
 		if (!canCommandExecute(command, args))
 		{
-			TextAdventureAPI.sendMessage(commandMap.get(command).getErrorMessage());
+			TextAdventureAPI.sendMessage(commandMap.get(command).getErrorMessage(args));
 			return;
 		}
 

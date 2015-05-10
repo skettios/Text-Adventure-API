@@ -6,6 +6,6 @@ public class Start
 {
 	public static void main(String[] args)
 	{
-		TextAdventureAPI.start("Test Adventure XD", new SkettiosTextAdventure());
+		TextAdventureAPI.start(new SkettiosTextAdventure("Test Adventure", "saves"));
 	}
 }

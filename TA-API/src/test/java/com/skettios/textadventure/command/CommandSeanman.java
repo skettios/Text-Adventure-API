@@ -26,7 +26,7 @@ public class CommandSeanman implements ICommand
 	}
 
 	@Override
-	public String getErrorMessage()
+	public String getErrorMessage(List<String> args)
 	{
 		return null;
 	}

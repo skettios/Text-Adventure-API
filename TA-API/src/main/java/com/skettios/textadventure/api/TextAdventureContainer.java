@@ -5,14 +5,26 @@ import com.skettios.textadventure.api.command.CommandExit;
 import com.skettios.textadventure.api.command.CommandLoad;
 import com.skettios.textadventure.api.command.CommandSave;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TextAdventureContainer
 {
 	protected TextAdventureUI ui;
+	private String title;
+	protected File saveDir;
 
-	public void start(String title)
+	public TextAdventureContainer(String title, String saveDir)
+	{
+		this.title = title;
+		this.saveDir = new File(saveDir);
+
+		if (!this.saveDir.exists())
+			this.saveDir.mkdir();
+	}
+
+	public void start()
 	{
 		ui = new TextAdventureUI(title);
 
@@ -35,6 +47,8 @@ public abstract class TextAdventureContainer
 
 	protected void parseCommand(String commandLine)
 	{
+		commandLine = commandLine.toLowerCase();
+
 		List<String> args = new ArrayList<String>();
 		String command;
 		String argsLine = "";

@@ -35,11 +35,11 @@ public class CommandSave implements ICommand
 		try
 		{
 			if (new File("saves/" + args.get(0)).exists())
-				EncryptionHelper.decryptSave(new FileInputStream("saves/" + args.get(0) + ".sav"), new FileOutputStream("saves/" + args.get(0) + "-temp.sav"));
+				EncryptionHelper.decryptSave(new FileInputStream(TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + ".sav"), new FileOutputStream(TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + "-temp.sav"));
 
-			FileOutputStream out = new FileOutputStream("saves/" + args.get(0) + "-temp.sav");
+			FileOutputStream out = new FileOutputStream(TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + "-temp.sav");
 			JsonWriter writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
-//			writer.setIndent("	");
+			writer.setIndent("	");
 
 			writer.beginArray();
 			{
@@ -84,11 +84,11 @@ public class CommandSave implements ICommand
 			writer.flush();
 			out.close();
 
-			EncryptionHelper.encryptSave(new FileInputStream("saves/" + args.get(0) + "-temp.sav"), new FileOutputStream("saves/" + args.get(0) + ".sav"));
+			EncryptionHelper.encryptSave(new FileInputStream(TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + "-temp.sav"), new FileOutputStream(TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + ".sav"));
 
-			new File("saves/" + args.get(0) + "-temp.sav").delete();
+//			new File(TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + "-temp.sav").delete();
 
-			TextAdventureAPI.sendMessage("Saved current progress to: saves/" + args.get(0) + ".sav");
+			TextAdventureAPI.sendMessage("Saved current progress to: " + TextAdventureAPI.getSaveDirectory() + "/" + args.get(0) + ".sav");
 		}
 		catch (IOException e)
 		{
@@ -103,7 +103,7 @@ public class CommandSave implements ICommand
 	}
 
 	@Override
-	public String getErrorMessage()
+	public String getErrorMessage(List<String> args)
 	{
 		return null;
 	}
